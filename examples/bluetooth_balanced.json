@@ -1,0 +1,12 @@
+{
+  "always_discoverable": false,
+  "secure_simple_pairing": true,
+  "link_encryption_enabled": true,
+  "bluetooth_version": 5.0,
+  "paired_devices": [],
+  "bluetooth_enabled": true,
+  "active_connection": true,
+  "expected_active": true,
+  "ble_address_type": "random",
+  "enabled_profiles": ["A2DP", "HFP"]
+}

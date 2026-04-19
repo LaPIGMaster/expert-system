@@ -10,3 +10,5 @@ build/
 venv/
 *.pyc
 .DS_Store
+cellular_profile.json
+bluetooth_profile.json

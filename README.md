@@ -21,9 +21,38 @@ pip install -r requirements.txt
 python main.py
 ```
 
-### Custom profile
+## Configuration
 
-Create `cellular_profile.json` and/or `bluetooth_profile.json` in the working directory.  The advisor picks them up automatically.
+There are **three ways** to configure the expert system:
+
+### 1. Interactive wizard (recommended)
+
+```bash
+python main.py --configure
+```
+
+The wizard asks you plain-English yes/no questions about your setup and writes
+`cellular_profile.json` + `bluetooth_profile.json` for you.  You can also
+choose a built-in preset from the wizard menu.
+
+### 2. Quick preset
+
+```bash
+# Maximum security — VPN on, 5G, DoH, IMEI privacy, BT off
+python main.py --preset max-security
+
+# Balanced — VPN on, 4G, DoH, BT on with safe defaults
+python main.py --preset balanced
+
+# Minimal — no VPN, standard 4G, BT on (shows what you should fix)
+python main.py --preset minimal
+```
+
+### 3. Manual JSON files
+
+Create `cellular_profile.json` and/or `bluetooth_profile.json` in the working
+directory.  The advisor picks them up automatically.  See the `examples/`
+folder for ready-to-use templates.
 
 **cellular_profile.json example**
 ```json
@@ -61,7 +90,7 @@ Create `cellular_profile.json` and/or `bluetooth_profile.json` in the working di
 python -m pytest tests/ -v
 ```
 
-All 84 tests should pass.
+All 104 tests should pass.
 
 ## Project layout
 
@@ -69,14 +98,17 @@ All 84 tests should pass.
 src/
   expert_system/
     advisors/
-      cellular.py   – Cellular/IP security rules & advisor
-      bluetooth.py  – Bluetooth security rules & advisor
+      cellular.py    – Cellular/IP security rules & advisor
+      bluetooth.py   – Bluetooth security rules & advisor
+    configure.py     – Interactive wizard & presets
     expert_system.py – Orchestrator (runs both advisors)
+examples/            – Ready-to-use JSON profile templates
 tests/
   test_cellular.py
   test_bluetooth.py
+  test_configure.py
   test_expert_system.py
-main.py             – CLI entry-point
+main.py              – CLI entry-point
 requirements.txt
 ```
 

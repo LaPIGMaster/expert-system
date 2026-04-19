@@ -3,7 +3,9 @@ CLI entry-point for the Expert System security advisor.
 
 Usage
 -----
-python main.py
+python main.py                       # Run assessment (uses config files or defaults)
+python main.py --configure           # Launch interactive configuration wizard
+python main.py --preset balanced     # Generate config from a preset and run assessment
 
 The script reads optional JSON config files for cellular and Bluetooth profiles
 (``cellular_profile.json`` and ``bluetooth_profile.json`` in the current
@@ -13,10 +15,12 @@ can always demonstrate findings.
 
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import sys
 
+from src.expert_system.configure import PRESETS, generate_from_preset, run_wizard
 from src.expert_system.expert_system import ExpertSystem
 
 # ---------------------------------------------------------------------------
@@ -57,7 +61,41 @@ def _load_profile(filename: str, default: dict) -> dict:
     return default
 
 
-def main() -> int:
+def _build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Expert System – Cellular/IP & Bluetooth Security Advisor",
+    )
+    parser.add_argument(
+        "--configure",
+        action="store_true",
+        help="Launch the interactive configuration wizard.",
+    )
+    parser.add_argument(
+        "--preset",
+        choices=list(PRESETS),
+        default=None,
+        help=(
+            "Generate configuration from a built-in preset "
+            "(max-security / balanced / minimal) and run the assessment."
+        ),
+    )
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = _build_parser()
+    args = parser.parse_args(argv)
+
+    # --configure: interactive wizard
+    if args.configure:
+        run_wizard()
+        return 0
+
+    # --preset: generate from preset, then assess
+    if args.preset:
+        generate_from_preset(args.preset)
+        print(f"✓ Preset '{args.preset}' written to cellular_profile.json + bluetooth_profile.json\n")
+
     cellular_profile = _load_profile("cellular_profile.json", DEFAULT_CELLULAR_PROFILE)
     bluetooth_profile = _load_profile("bluetooth_profile.json", DEFAULT_BLUETOOTH_PROFILE)
 

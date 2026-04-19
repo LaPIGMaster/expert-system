@@ -1,0 +1,10 @@
+{
+  "vpn_active": false,
+  "vpn_protocol": "",
+  "network_generation": "4G",
+  "data_roaming_enabled": false,
+  "dns_over_https_enabled": false,
+  "imei_privacy_mode": false,
+  "apn_uses_tls": true,
+  "firewall_enabled": false
+}

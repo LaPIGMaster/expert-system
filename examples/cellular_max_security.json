@@ -1,0 +1,10 @@
+{
+  "vpn_active": true,
+  "vpn_protocol": "wireguard",
+  "network_generation": "5G",
+  "data_roaming_enabled": false,
+  "dns_over_https_enabled": true,
+  "imei_privacy_mode": true,
+  "apn_uses_tls": true,
+  "firewall_enabled": true
+}
