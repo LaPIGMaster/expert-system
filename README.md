@@ -92,6 +92,23 @@ python -m pytest tests/ -v
 
 All 104 tests should pass.
 
+## iPhone / iOS setup guide
+
+The expert system's recommendations cover both Android and iPhone.  Here is a
+quick reference for applying each finding on **iOS 16+**:
+
+| Rule | Setting on iPhone |
+|------|-------------------|
+| **C-001** VPN required | Install a VPN app (e.g. WireGuard) → Settings → VPN → toggle on. Enable *Connect On Demand* for kill-switch. |
+| **C-003** Disable 2G | Settings → Cellular → Cellular Data Options → Voice & Data → select **5G** or **LTE**. |
+| **C-005** DNS-over-HTTPS | Install the 1.1.1.1 app or a DNS profile → Settings → General → VPN & Device Management → DNS. |
+| **C-006** IMEI privacy | iOS uses 5G SUPI concealment automatically on 5G networks. Enable *iCloud Private Relay* (Settings → Apple Account → iCloud → Private Relay) for additional IP privacy. |
+| **C-008** Firewall | Enable *Lockdown Mode* (Settings → Privacy & Security → Lockdown Mode). Manage per-app network in Settings → Privacy & Security → Local Network. |
+| **B-001** Discoverability | iOS auto-manages this — only discoverable while Settings → Bluetooth is open. |
+| **B-006** BT when unused | Settings → Bluetooth → toggle off (Control Centre only disconnects until next day). Use *Shortcuts* app for time-based automation. |
+| **B-007** BLE privacy | Resolvable Private Addresses are enabled by default since iOS 8 — no action needed. |
+| **B-008** Risky profiles | Forget unused devices: Settings → Bluetooth → tap ⓘ → *Forget This Device*. |
+
 ## Project layout
 
 ```

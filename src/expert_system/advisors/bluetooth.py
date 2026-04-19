@@ -38,7 +38,10 @@ def _rule_discoverability(profile: dict[str, Any]) -> Finding | None:
             recommendation=(
                 "Set discoverability to 'temporary' (e.g. 2 minutes) only when "
                 "actively pairing a new device. After pairing, turn discoverability "
-                "off. Most modern OS defaults do this automatically."
+                "off. Most modern OS defaults do this automatically. "
+                "On iPhone: iOS manages discoverability automatically — the device "
+                "is only discoverable while Settings → Bluetooth is open. Simply "
+                "leave that screen to stop broadcasting."
             ),
         )
     return None
@@ -155,7 +158,11 @@ def _rule_bluetooth_disabled_when_unused(profile: dict[str, Any]) -> Finding | N
             recommendation=(
                 "Disable Bluetooth when you are not actively using a peripheral. "
                 "Use quick-settings toggles or automation apps (e.g. Tasker) to "
-                "turn Bluetooth off automatically after a period of inactivity."
+                "turn Bluetooth off automatically after a period of inactivity. "
+                "On iPhone: use Control Centre to toggle Bluetooth off (note: this "
+                "only disconnects devices until the next day). For a full disable, "
+                "go to Settings → Bluetooth → toggle off, or create a Shortcuts "
+                "automation to turn Bluetooth off at a scheduled time."
             ),
         )
     return None
@@ -175,8 +182,10 @@ def _rule_ble_privacy(profile: dict[str, Any]) -> Finding | None:
             ),
             recommendation=(
                 "Enable Bluetooth LE Privacy / Resolvable Private Addresses (RPA) "
-                "in your OS Bluetooth settings. iOS, Android 8+, and Windows 10+ "
-                "all support RPA by default for most BLE roles."
+                "in your OS Bluetooth settings. iOS (since iOS 8), Android 8+, and "
+                "Windows 10+ all support RPA by default for most BLE roles. "
+                "On iPhone: RPA is enabled automatically — no action is needed "
+                "unless you have a jailbroken device with custom BLE settings."
             ),
         )
     return None
@@ -200,7 +209,10 @@ def _rule_no_open_profiles(profile: dict[str, Any]) -> Finding | None:
             recommendation=(
                 "Disable Bluetooth profiles that are not actively required. On Android "
                 "you can manage profiles per device; on desktop OSes use the Bluetooth "
-                "adapter settings to restrict available services."
+                "adapter settings to restrict available services. On iPhone: iOS does "
+                "not expose profile management directly, but you can remove paired "
+                "devices that use risky profiles (tap the ⓘ next to the device in "
+                "Settings → Bluetooth → Forget This Device)."
             ),
         )
     return None

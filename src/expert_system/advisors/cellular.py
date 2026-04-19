@@ -55,7 +55,10 @@ def _rule_vpn_required(profile: dict[str, Any]) -> Finding | None:
             recommendation=(
                 "Enable a trusted VPN (WireGuard or OpenVPN with AES-256-GCM) before "
                 "connecting to any cellular network. Configure the VPN to use a "
-                "kill-switch so traffic is blocked if the VPN drops."
+                "kill-switch so traffic is blocked if the VPN drops. "
+                "On iPhone: install a VPN app (e.g. WireGuard) from the App Store, "
+                "then enable 'Connect On Demand' in Settings → VPN for an automatic "
+                "kill-switch."
             ),
         )
     return None
@@ -100,8 +103,9 @@ def _rule_network_generation(profile: dict[str, Any]) -> Finding | None:
             ),
             recommendation=(
                 "Disable 2G fallback in your device's network settings and force "
-                "4G LTE or 5G NR minimum. Most carriers offer this via "
-                "'Preferred network type' in Settings → Mobile network."
+                "4G LTE or 5G NR minimum. On Android: Settings → Mobile network → "
+                "Preferred network type. On iPhone: Settings → Cellular → "
+                "Cellular Data Options → Voice & Data → select 5G or LTE."
             ),
         )
     return None
@@ -142,7 +146,10 @@ def _rule_dns_over_https(profile: dict[str, Any]) -> Finding | None:
             recommendation=(
                 "Enable DNS-over-HTTPS using a privacy-respecting resolver such as "
                 "Cloudflare (1.1.1.1) or NextDNS. On Android 9+: Settings → "
-                "Network → Private DNS → enter your DoH hostname."
+                "Network → Private DNS → enter your DoH hostname. On iPhone "
+                "(iOS 14+): install an encrypted-DNS profile from your provider "
+                "(e.g. 1.1.1.1 app → Settings → Enable DNS-over-HTTPS), or install "
+                "a configuration profile from https://dns.notjakob.com/."
             ),
         )
     return None
@@ -162,7 +169,11 @@ def _rule_imei_randomisation(profile: dict[str, Any]) -> Finding | None:
             recommendation=(
                 "Use a carrier or OS that supports IMSI randomisation (5G SUPI "
                 "concealment or GrapheneOS randomised IMEI). Alternatively, combine "
-                "with a VPN and rotate SIM cards when high anonymity is required."
+                "with a VPN and rotate SIM cards when high anonymity is required. "
+                "On iPhone: iOS does not support IMEI randomisation, but 5G SUPI "
+                "concealment is used automatically when on a 5G network. Enable "
+                "iCloud Private Relay (Settings → Apple Account → iCloud → "
+                "Private Relay) for additional IP-level privacy."
             ),
         )
     return None
@@ -204,7 +215,11 @@ def _rule_firewall_enabled(profile: dict[str, Any]) -> Finding | None:
             recommendation=(
                 "Enable a host-based firewall such as AFWall+ (root), NetGuard "
                 "(no-root), or the built-in Private DNS + per-app network permission "
-                "controls available on Android 10+."
+                "controls available on Android 10+. On iPhone: enable Lockdown Mode "
+                "(Settings → Privacy & Security → Lockdown Mode) for maximum "
+                "attack-surface reduction. You can also use content-blocker apps "
+                "and configure per-app Local Network permissions in "
+                "Settings → Privacy & Security → Local Network."
             ),
         )
     return None
